@@ -2,13 +2,16 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
+const middleware = require(path.join(__dirname, 'middleware'))
 
 //2.创建app
 const app = express()
 
 //3.配置相关中间件
+// 跨域中间件
+app.use(middleware.allowCrossDomain)
+
 // 权限控制中间件
-const middleware = require(path.join(__dirname, 'middleware'))
 app.use(middleware.validateAppKey)
 
 // parse application/x-www-form-urlencoded

@@ -9,7 +9,7 @@ const appkey = require(path.join(__dirname, '../controllers/appkey'))
 const home = require(path.join(__dirname, '../controllers/home'))
 
 // AppKey
-router.get('/api/appkey', appkey.getAppKey)
+router.get('/api/appkey/:phone', appkey.getAppKey)
 router.post('/api/appkey', appkey.addAppKey)
 
 // 首页
