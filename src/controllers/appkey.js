@@ -18,7 +18,9 @@ exports.getAppKey = (req, res) => {
     return
   }
 
-  const sql = `select * from t_appkey where phone = '${req.params.phone}' and status = 1`
+  const sql = `select * from t_appkey where phone = '${
+    req.params.phone
+  }' and status = 1`
 
   db.exec(sql, results => {
     if (results[0]) {
@@ -67,7 +69,9 @@ exports.addAppKey = async (req, res) => {
   }
 
   // 判断手机号是否注册过
-  const selectSql = `select * from t_appkey where phone = '${req.body.phone}' and status = 1`
+  const selectSql = `select * from t_appkey where phone = '${
+    req.body.phone
+  }' and status = 1`
 
   const results = await db.execPromise(selectSql)
   console.log(results)

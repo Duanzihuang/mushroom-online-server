@@ -1,13 +1,18 @@
 // 需要排除检测的url地址
-const excludeValidateAppKeyUrl = '/api/appkey'
+const excludeValidateAppKeyUrls = ['/favicon.ico', '/api/appkey', '/images']
 
 // 需要排除检测的方法
 const needExcludeValidateAppKeyUrl = req => {
-  if (req.url.startsWith(excludeValidateAppKeyUrl)) {
-    return true
-  } else {
-    return false
-  }
+  // 是否需要排除
+  let isExclude = false
+  excludeValidateAppKeyUrls.some(item => {
+    if (req.url.startsWith(item)) {
+      isExclude = true
+      return true
+    }
+  })
+
+  return isExclude
 }
 
 /**

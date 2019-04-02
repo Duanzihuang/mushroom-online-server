@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
 const middleware = require(path.join(__dirname, 'middleware'))
+const config = require(path.join(__dirname, './config/api_config.js'))
 
 //2.创建app
 const app = express()
@@ -14,6 +15,9 @@ app.use(middleware.allowCrossDomain)
 // 权限控制中间件
 app.use(middleware.validateAppKey)
 
+// 静态资源中间件
+app.use(express.static(path.join(__dirname, 'public')))
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
@@ -24,7 +28,7 @@ const router = require(path.join(__dirname, 'router'))
 app.use(router)
 
 //5.启动
-app.listen(3000, err => {
+app.listen(config.PORT, err => {
   if (err) {
     console.log(err)
   }

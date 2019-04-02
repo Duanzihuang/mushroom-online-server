@@ -91,3 +91,61 @@
     "appkey": "79541b50522a11e98bce831b227fad88"
 }
 ```
+
+## 首页
+
+#### 获取首页轮播图
+
+- 请求路径：home/swipers
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| 暂无   | 暂无     | 暂无 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": [
+        {
+            "id": 1,
+            "img_url": "http://127.0.0.1:3000/images/carousel/banner_01.jpg",
+            "link_url": null,
+            "create_time": "2019-04-02T03:58:18.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        {
+            "id": 2,
+            "img_url": "http://127.0.0.1:3000/images/carousel/banner_02.jpg",
+            "link_url": null,
+            "create_time": "2019-04-02T03:59:20.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        {
+            "id": 3,
+            "img_url": "http://127.0.0.1:3000/images/carousel/banner_03.jpg",
+            "link_url": null,
+            "create_time": "2019-04-02T03:59:47.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        }
+    ]
+}
+```
+
+#### 

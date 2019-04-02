@@ -16,4 +16,5 @@ Express + Mysql 搭建的蘑菇在线服务端
 
 ### 接口文档
 
-> 文档地址： https://github.com/Duanzihuang/mushroom-online-server/blob/master/README.md
+> 文档地址： https://github.com/Duanzihuang/mushroom-online-server/blob/master/api.md
+
