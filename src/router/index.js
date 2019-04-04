@@ -7,6 +7,7 @@ const router = express.Router()
 // 导入相关控制器
 const appkey = require(path.join(__dirname, '../controllers/appkey'))
 const home = require(path.join(__dirname, '../controllers/home'))
+const course = require(path.join(__dirname, '../controllers/course'))
 
 // AppKey
 router.get('/api/appkey/:phone', appkey.getAppKey)
@@ -14,6 +15,10 @@ router.post('/api/appkey', appkey.addAppKey)
 
 // 首页
 router.get('/api/home/swipers', home.getSwipers)
+
+// 课程
+router.get('/api/course/list', course.getCourseList)
+router.get('/api/course/:name', course.getCourseListByName)
 
 //导出
 module.exports = router
