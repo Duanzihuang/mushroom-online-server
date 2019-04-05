@@ -8,10 +8,14 @@ const router = express.Router()
 const appkey = require(path.join(__dirname, '../controllers/appkey'))
 const home = require(path.join(__dirname, '../controllers/home'))
 const course = require(path.join(__dirname, '../controllers/course'))
+const user = require(path.join(__dirname, '../controllers/user'))
 
 // AppKey
 router.get('/api/appkey/:phone', appkey.getAppKey)
 router.post('/api/appkey', appkey.addAppKey)
+
+// 用户
+router.post('/api/user/wxlogin',user.wxLogin)
 
 // 首页
 router.get('/api/home/swipers', home.getSwipers)

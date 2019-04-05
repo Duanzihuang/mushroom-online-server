@@ -1,6 +1,6 @@
 const path = require('path')
 const db = require(path.join(__dirname, '../db/index.js'))
-const config = require(path.join(__dirname, '../config/api_config.js'))
+const config = require(path.join(__dirname, '../config/global_config.js'))
 /**
  * 获取首页轮播图
  */

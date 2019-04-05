@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
 const middleware = require(path.join(__dirname, 'middleware'))
-const config = require(path.join(__dirname, './config/api_config.js'))
+const config = require(path.join(__dirname, './config/global_config.js'))
 
 //2.创建app
 const app = express()
