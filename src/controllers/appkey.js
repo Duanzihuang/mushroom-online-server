@@ -1,5 +1,6 @@
 const path = require('path')
 const db = require(path.join(__dirname, '../db/index.js'))
+const validate = require(path.join(__dirname,"../utils/validate.js"))
 const uuidv1 = require('uuid/v1')
 /**
  * 返回AppKey
@@ -10,7 +11,7 @@ exports.getAppKey = (req, res) => {
     message: '查询appkey成功'
   }
 
-  if (!validatePhone(req.params.phone)) {
+  if (!validate.validatePhone(req.params.phone)) {
     result.status = 1
     result.message = '手机号格式不正确'
     res.json(result)
@@ -34,16 +35,7 @@ exports.getAppKey = (req, res) => {
   })
 }
 
-/**
- * 验证手机号
- *
- * @param {*} phone 手机号
- */
-const validatePhone = phone => {
-  const reg = /^1[3,4,5,6,7,8,9][0-9]{9}$/
 
-  return reg.test(phone)
-}
 
 /**
  * 新增Appkey
@@ -61,7 +53,7 @@ exports.addAppKey = async (req, res) => {
     return
   }
 
-  if (!validatePhone(req.body.phone)) {
+  if (!validate.validatePhone(req.body.phone)) {
     result.status = 2
     result.message = '手机号格式不正确'
     res.json(result)

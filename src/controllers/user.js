@@ -3,6 +3,7 @@ const db = require(path.join(__dirname, '../db/index.js'))
 const jwt = require('jsonwebtoken')
 const { getWxOpenId } = require(path.join(__dirname, '../wxsdk'))
 const config = require(path.join(__dirname, '../config/global_config.js'))
+const validate = require(path.join(__dirname,"../utils/validate.js"))
 
 /**
  * 微信登录
@@ -57,6 +58,53 @@ exports.wxLogin = async (req, res) => {
     const res3 = await db.execPromise(insertUserInfoSql)
 
     userId = res3.id
+  }
+
+  // 根据userId生成token
+  const token = "Bearer "+jwt.sign({ user_id: userId }, config.jwt_config.secretKey, {
+    expiresIn: config.jwt_config.expiresIn
+  })
+  
+  result.token = token
+  res.json(result)
+}
+
+/**
+ * 手机号登录
+ */
+exports.login = async (req,res) => {
+  const result = {
+    status:0,
+    message:'登录成功'
+  }
+
+  if (!req.body.phone){
+    result.status = 1
+    result.message = '手机号不能为空'
+    res.json(result)
+    return
+  }
+
+  if(!validate.validatePhone(req.body.phone)){
+    result.status = 2
+    result.message = '手机号不正确'
+    res.json(result)
+    return
+  }
+
+  // todo 验证短信验证码
+
+  // 查询该手机号之前是否注册过，如果没有则注册，否则返回查询到的用户信息
+  const photoSelectSql = `select * from t_user where phone = '${req.body.phone}'`
+  const res1 = await db.execPromise(photoSelectSql)
+
+  let userId = null
+  if (res1 && res1.length > 0){ // 查询到了
+    userId = res1.id
+  } else { // 没查询到
+    const insertUserSql = `insert into t_user(phone) values('${req.body.phone}')`
+    const res2 = await db.execPromise(insertUserSql)
+    userId = res2.id
   }
 
   // 根据userId生成token
