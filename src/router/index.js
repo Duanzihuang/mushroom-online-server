@@ -16,6 +16,7 @@ router.post('/api/appkey', appkey.addAppKey)
 
 // 用户
 router.post('/api/user/wxlogin',user.wxLogin)
+router.get('/api/user/vcode',user.getVcode)
 router.post('/api/user/login',user.login)
 
 // 首页

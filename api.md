@@ -92,6 +92,93 @@
 }
 ```
 
+## 登录
+
+#### 微信登录
+
+- 请求路径：user/wxlogin
+- 请求方法：POST
+- 请求参数
+
+| 参数名 | 参数说明                             | 备注     |
+| ------ | ------------------------------------ | -------- |
+| code   | 调用wx.login接口获取登录凭证（code） | 不能为空 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                           |
+| ------- | -------- | ------------------------------ |
+| status  | 响应状态 | 0:微信登录成功  1:code不能为空 |
+| message | 响应消息 | 服务器返回的消息               |
+| token   | 令牌     | 服务器登录成功之后返回的令牌   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": "登录成功",
+    "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTQ3MjY5MjksImV4cCI6MTU1NDgxMzMyOX0.36EOpSpb9VgtC5DfD5y8h9vQUi9ecCd_9McXbME1ADE"
+}
+```
+
+#### 获取验证码
+
+- 请求路径：user/vcode
+- 请求方法：GET
+- 请求参数
+
+| 参数名 | 参数说明 | 备注     |
+| ------ | -------- | -------- |
+| phone  | 手机号码 | 不能为空 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                                                   |
+| ------- | -------- | ------------------------------------------------------ |
+| status  | 响应状态 | 0:获取验证码成功  1:手机号不能为空  2:手机号格式不正确 |
+| message | 响应消息 | 服务器返回的消息                                       |
+| vcode   | 验证码   | 服务器返回的验证码                                     |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": "获取验证码成功",
+    "vcode": 8088
+}
+```
+
+#### 手机号登录
+
+- 请求路径：user/login
+- 请求方法：POST
+- 请求参数
+
+| 参数名 | 参数说明 | 备注     |
+| ------ | -------- | -------- |
+| phone  | 手机号   | 不能为空 |
+| vcode  | 验证码   | 不能为空 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                                   |
+| ------- | -------- | -------------------------------------- |
+| status  | 响应状态 | 0:登录成功  1:手机号有误  2:验证码有误 |
+| message | 响应消息 | 服务器返回的消息                       |
+| token   | 令牌     | 服务器登录成功之后返回的令牌           |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": "登录成功",
+    "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTQ3MjY5MjksImV4cCI6MTU1NDgxMzMyOX0.36EOpSpb9VgtC5DfD5y8h9vQUi9ecCd_9McXbME1ADE"
+}
+```
+
 ## 首页
 
 #### 获取首页轮播图

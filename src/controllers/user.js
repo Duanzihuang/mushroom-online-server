@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const { getWxOpenId } = require(path.join(__dirname, '../wxsdk'))
 const config = require(path.join(__dirname, '../config/global_config.js'))
 const validate = require(path.join(__dirname,"../utils/validate.js"))
+const phoneMap = new Map()
 
 /**
  * 微信登录
@@ -70,6 +71,40 @@ exports.wxLogin = async (req, res) => {
 }
 
 /**
+ * 获取验证码
+ */
+exports.getVcode = (req,res) => {
+  const result = {
+    status:0,
+    message:'获取验证码成功'
+  }
+
+  if (!req.query.phone) {
+    result.status = 1
+    result.message = "手机号不能为空"
+    res.json(result)
+    return
+  }
+
+  if(!validate.validatePhone(req.query.phone)){
+    result.status = 2
+    result.message = '手机号不正确'
+    res.json(result)
+    return
+  }
+
+  // 生成4位数验证码
+  const vcode = parseInt(Math.random()*9000+1000)
+  // todo 向用户手机号发送验证码
+  result.vcode = vcode
+
+  // 把手机号及验证码的对应关系保存起来
+  phoneMap.set(req.query.phone,vcode)
+
+  res.json(result)
+}
+
+/**
  * 手机号登录
  */
 exports.login = async (req,res) => {
@@ -92,7 +127,22 @@ exports.login = async (req,res) => {
     return
   }
 
+  if (!req.body.vcode){
+    result.status = 3
+    result.message = '验证码不能为空'
+    res.json(result)
+
+    return
+  }
+
   // todo 验证短信验证码
+  if (phoneMap.get(req.body.phone) !== parseInt(req.body.vcode)){
+    result.status = 4
+    result.message = '验证码不正确'
+    res.json(result)
+
+    return
+  }
 
   // 查询该手机号之前是否注册过，如果没有则注册，否则返回查询到的用户信息
   const photoSelectSql = `select * from t_user where phone = '${req.body.phone}'`
@@ -112,6 +162,9 @@ exports.login = async (req,res) => {
     expiresIn: config.jwt_config.expiresIn
   })
   
+  // 删除phoneMap中手机号和验证码的对应关系
+  phoneMap.delete(req.body.phone)
+
   result.token = token
   res.json(result)
 }
