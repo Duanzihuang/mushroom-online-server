@@ -13,6 +13,26 @@ Express + Mysql 搭建的蘑菇在线服务端
 2. MySql
 3. body-parser
 4. uuid
+5. Map
+
+### 运行
+
+```
+# 打开Mysql数据库
+
+# 新建数据库 mushroom_online
+
+# 执行项目根目录下 db_file/mushroom_online.sql 文件
+
+# 克隆项目源代码 
+git clone https://github.com/Duanzihuang/mushroom-online-server.git
+	
+# 切换到根目录，安装依赖包
+npm i
+	
+# 启动
+npm run start
+```
 
 ### 接口文档
 

@@ -5,7 +5,7 @@ const config = require(path.join(__dirname, '../config/global_config.js'))
 // 获取课程列表
 exports.getCourseList = async (req, res) => {
   // 查询sql
-  const selectSql = 'select * from t_course'
+  const selectSql = 'select * from t_course where status = 1 and is_recommend = 0'
 
   const results = await db.execPromise(selectSql)
 
@@ -26,7 +26,7 @@ exports.getCourseListByName = async (req, res) => {
   const keyword = req.params.name || ''
 
   // 查询sql
-  const selectSql = `select * from t_course where title like('%${keyword}%')`
+  const selectSql = `select * from t_course where title like('%${keyword}%') and status = 1 and is_recommend = 0`
 
   const results = await db.execPromise(selectSql)
 

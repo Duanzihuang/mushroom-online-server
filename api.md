@@ -235,4 +235,139 @@
 }
 ```
 
-#### 
+#### 获取首页推荐课程
+
+- 请求路径：home/course
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| 暂无   | 暂无     | 暂无 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": [
+        {
+            "id": 13,
+            "title": "创意DIY班",
+            "subtitle": null,
+            "icon": null,
+            "audience": "适合3~6岁人群",
+            "level": 1,
+            "class_hour": null,
+            "price": null,
+            "score": null,
+            "study_count": null,
+            "is_recommend": 1,
+            "create_time": "2019-04-09T13:23:18.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        {
+            "id": 14,
+            "title": "创意美术班",
+            "subtitle": null,
+            "icon": null,
+            "audience": "适合6~12岁人群",
+            "level": 1,
+            "class_hour": null,
+            "price": null,
+            "score": null,
+            "study_count": null,
+            "is_recommend": 1,
+            "create_time": "2019-04-09T13:23:12.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        {
+            "id": 15,
+            "title": "素描班",
+            "subtitle": null,
+            "icon": null,
+            "audience": "适合15~20岁人群\n",
+            "level": 1,
+            "class_hour": null,
+            "price": null,
+            "score": null,
+            "study_count": null,
+            "is_recommend": 1,
+            "create_time": "2019-04-09T13:23:15.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        }
+    ]
+}
+```
+
+####  获取首页热门视频
+
+- 请求路径：home/video
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| 暂无   | 暂无     | 暂无 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": [
+        {
+            "id": 10,
+            "name": "可爱的玩偶制作教程",
+            "cover_photo_url": "http://127.0.0.1:3000/images/hot_video/hot1.png",
+            "video_url": null,
+            "duration": 380,
+            "is_study": 0,
+            "course_id": 4,
+            "is_hot": 1,
+            "view_count": 152,
+            "create_time": "2019-04-09T06:46:11.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        {
+            "id": 11,
+            "name": "编程几何的艺术魅力",
+            "cover_photo_url": "http://127.0.0.1:3000/images/hot_video/hot2.png",
+            "video_url": null,
+            "duration": 520,
+            "is_study": 0,
+            "course_id": 5,
+            "is_hot": 1,
+            "view_count": 623,
+            "create_time": "2019-04-09T06:46:51.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        }
+    ]
+}
+```
+
+####  

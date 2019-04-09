@@ -21,6 +21,8 @@ router.post('/api/user/login',user.login)
 
 // 首页
 router.get('/api/home/swipers', home.getSwipers)
+router.get('/api/home/course', home.getRecommendCourse)
+router.get('/api/home/video', home.getHotVideo)
 
 // 课程
 router.get('/api/course/list', course.getCourseList)

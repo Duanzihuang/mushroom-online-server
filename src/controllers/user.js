@@ -36,7 +36,7 @@ exports.wxLogin = async (req, res) => {
   // 判断该openId是否存在
   const queryWxOpenIdSql = `select id from t_user where wx_open_id='${
     res1.openid
-  }'`
+  }' and status = 1`
   const res2 = await db.execPromise(queryWxOpenIdSql)
 
   // 执行结果
@@ -45,7 +45,7 @@ exports.wxLogin = async (req, res) => {
     // 存在
     const updateUserInfoSql = `update t_user set wx_session_key='${
       res2.session_key
-    }' where wx_open_id='${res2.openid}'`
+    }' where wx_open_id='${res2.openid}' and status = 1`
 
     await db.execPromise(updateUserInfoSql)
 
@@ -145,7 +145,7 @@ exports.login = async (req,res) => {
   }
 
   // 查询该手机号之前是否注册过，如果没有则注册，否则返回查询到的用户信息
-  const photoSelectSql = `select * from t_user where phone = '${req.body.phone}'`
+  const photoSelectSql = `select * from t_user where phone = '${req.body.phone}' and status = 1`
   const res1 = await db.execPromise(photoSelectSql)
 
   let userId = null
