@@ -370,4 +370,267 @@
 }
 ```
 
+## 课程
+
+#### 获取课程列表
+
+- 请求路径：course/list
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| 暂无   | 暂无     | 暂无 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": [
+        {
+            "id": 1,
+            "title": "逻辑思维训练",
+            "subtitle": "提升思考的能力",
+            "icon": "http://127.0.0.1:3000/images/course/course1.png",
+            "audience": null,
+            "level": 1,
+            "class_hour": 15,
+            "price": null,
+            "score": null,
+            "study_count": null,
+            "is_recommend": 0,
+            "create_time": "2019-04-04T13:33:45.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        {    "id": 2,
+            "title": "Scratch编程启蒙",
+            "subtitle": "MIT研发的编程工具",
+            "icon": "http://127.0.0.1:3000/images/course/course2.png",
+            "audience": null,
+            "level": 2,
+            "class_hour": 10,
+            "price": null,
+            "score": null,
+            "study_count": null,
+            "is_recommend": 0,
+            "create_time": "2019-04-04T13:37:35.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        }
+    ]
+}
+```
+
+#### 根据关键字查询课程列表
+
+- 请求路径：course/search
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注     |
+| ------ | -------- | -------- |
+| name   | 课程名   | 不能为空 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": [
+        {
+            "id": 4,
+            "title": "少儿编程入门全集",
+            "subtitle": "从小学习编程是时代趋势",
+            "icon": "http://127.0.0.1:3000/images/course/course4.png",
+            "audience": null,
+            "level": 1,
+            "class_hour": 12,
+            "price": null,
+            "score": null,
+            "study_count": null,
+            "is_recommend": 0,
+            "create_time": "2019-04-04T13:38:43.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        {
+            "id": 8,
+            "title": "爱编程的艺术家",
+            "subtitle": "艺术和代码的碰撞",
+            "icon": "http://127.0.0.1:3000/images/course/course8.png",
+            "audience": null,
+            "level": 3,
+            "class_hour": 12,
+            "price": null,
+            "score": null,
+            "study_count": null,
+            "is_recommend": 0,
+            "create_time": "2019-04-04T13:41:03.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        }
+    ]
+}
+```
+
+#### 根据id查询课程
+
+- 请求路径：course/:id
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注     |
+| ------ | -------- | -------- |
+| id     | 课程id   | 不能为空 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": {
+        "course": [
+            {
+                "id": 3,
+                "title": "创意手绘班",
+                "subtitle": "轻松入门手绘",
+                "icon": "http://127.0.0.1:3000/public/images/course/course3.png",
+                "audience": null,
+                "level": 3,
+                "class_hour": 12,
+                "price": 259,
+                "score": 4,
+                "study_count": 1524,
+                "is_recommend": 0,
+                "create_time": "2019-04-04T13:38:09.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            }
+        ],
+        "videos": [
+            {
+                "id": 1,
+                "name": "绘画课程使用画具购买建议",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": 600,
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T04:50:31.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 2,
+                "name": "掌握线条绘制的方法",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": 400,
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T04:58:33.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            }
+        ],
+        "lecturer": [
+            {
+                "id": 0,
+                "name": "张老师",
+                "avatar": "http://127.0.0.1:3000/public/images/lecturer/lecturer1.jpg",
+                "introduction": "多年教育与开发经验，专注少儿编程课程开发，侧重培养学生专注力和分析解决问题的能力，语言风趣，授课思路清晰，通俗易懂。",
+                "follow_count": 2546,
+                "course_id": 3,
+                "create_time": "2019-04-09T04:40:08.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            }
+        ],
+        "comments": [
+            {
+                "id": 5,
+                "course_id": 3,
+                "pid": 0,
+                "uid": 5,
+                "score": 4,
+                "content": "老师讲解的不错，孩子很喜欢！",
+                "good": 0,
+                "comment_time": "2019-04-09T04:35:13.000Z",
+                "status": 1,
+                "nickname": null,
+                "phone": "14786920926",
+                "password": null,
+                "avatar": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "gender": 1,
+                "address": null,
+                "wx_open_id": null,
+                "wx_session_key": null,
+                "wx_union_id": null,
+                "create_time": null,
+                "update_time": null,
+                "delete_time": null
+            },
+            {
+                "id": 6,
+                "course_id": 3,
+                "pid": 0,
+                "uid": 6,
+                "score": 4,
+                "content": "看过才知道自己哪里不行，贵在坚持，感谢老师！",
+                "good": 0,
+                "comment_time": "2019-04-09T04:37:02.000Z",
+                "status": 1,
+                "nickname": null,
+                "phone": "17704051019",
+                "password": null,
+                "avatar": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "gender": 1,
+                "address": null,
+                "wx_open_id": null,
+                "wx_session_key": null,
+                "wx_union_id": null,
+                "create_time": null,
+                "update_time": null,
+                "delete_time": null
+            }
+        ]
+    }
+}
+```
+
 ####  

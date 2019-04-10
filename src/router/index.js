@@ -26,7 +26,8 @@ router.get('/api/home/video', home.getHotVideo)
 
 // 课程
 router.get('/api/course/list', course.getCourseList)
-router.get('/api/course/:name', course.getCourseListByName)
+router.get('/api/course/search', course.getCourseListByName)
+router.get('/api/course/:id', course.getCourseById)
 
 //导出
 module.exports = router
