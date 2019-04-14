@@ -630,7 +630,60 @@
             }
         ]
     }
+} 
+```
+
+## 学习
+
+#### 获取学习进度列表
+
+- 请求路径：study/progress
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| 暂无   | 暂无     | 暂无 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": [
+        {
+            "id": 1,
+            "uid": 6,
+            "course_id": 1,
+            "study_hour": 5,
+            "study_progress": 0.33,
+            "status": 1
+        },
+        {
+            "id": 2,
+            "uid": 6,
+            "course_id": 2,
+            "study_hour": 3,
+            "study_progress": 0.3,
+            "status": 1
+        },
+        {
+            "id": 3,
+            "uid": 6,
+            "course_id": 3,
+            "study_hour": 6,
+            "study_progress": 50,
+            "status": 1
+        }
+    ]
 }
 ```
 
-####  
+#### 

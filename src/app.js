@@ -15,6 +15,9 @@ app.use(middleware.allowCrossDomain)
 // 权限控制中间件
 app.use(middleware.validateAppKey)
 
+// 验证token
+app.use(middleware.validateToken)
+
 // 静态资源中间件
 app.use('/public',express.static(path.join(__dirname, 'public')))
 
@@ -24,8 +27,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // 路由中间件
-const router = require(path.join(__dirname, 'router'))
-app.use(router)
+const apiRouter = require(path.join(__dirname, 'router'))
+app.use('/api',apiRouter)
 
 //5.启动
 app.listen(config.PORT, err => {

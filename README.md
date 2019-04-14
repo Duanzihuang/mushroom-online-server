@@ -14,6 +14,8 @@ Express + Mysql 搭建的蘑菇在线服务端
 3. body-parser
 4. uuid
 5. Map
+6. jsonwebtoken
+7. moment
 
 ### 运行
 

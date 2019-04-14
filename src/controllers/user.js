@@ -1,6 +1,7 @@
 const path = require('path')
 const db = require(path.join(__dirname, '../db/index.js'))
 const jwt = require('jsonwebtoken')
+const moment = require('moment')
 const { getWxOpenId } = require(path.join(__dirname, '../wxsdk'))
 const config = require(path.join(__dirname, '../config/global_config.js'))
 const validate = require(path.join(__dirname,"../utils/validate.js"))
@@ -58,7 +59,7 @@ exports.wxLogin = async (req, res) => {
 
     const res3 = await db.execPromise(insertUserInfoSql)
 
-    userId = res3.id
+    userId = res3.insertId
   }
 
   // 根据userId生成token
@@ -147,18 +148,18 @@ exports.login = async (req,res) => {
   // 查询该手机号之前是否注册过，如果没有则注册，否则返回查询到的用户信息
   const photoSelectSql = `select * from t_user where phone = '${req.body.phone}' and status = 1`
   const res1 = await db.execPromise(photoSelectSql)
-
+  
   let userId = null
   if (res1 && res1.length > 0){ // 查询到了
-    userId = res1.id
+    userId = res1[0].id
   } else { // 没查询到
-    const insertUserSql = `insert into t_user(phone) values('${req.body.phone}')`
+    const insertUserSql = `insert into t_user(phone,create_time) values('${req.body.phone}','${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}')`
     const res2 = await db.execPromise(insertUserSql)
-    userId = res2.id
+    userId = res2.insertId
   }
 
   // 根据userId生成token
-  const token = "Bearer "+jwt.sign({ user_id: userId }, config.jwt_config.secretKey, {
+  const token = 'Bearer ' + jwt.sign({ user_id: userId }, config.jwt_config.secretKey, {
     expiresIn: config.jwt_config.expiresIn
   })
   

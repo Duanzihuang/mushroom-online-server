@@ -9,25 +9,29 @@ const appkey = require(path.join(__dirname, '../controllers/appkey'))
 const home = require(path.join(__dirname, '../controllers/home'))
 const course = require(path.join(__dirname, '../controllers/course'))
 const user = require(path.join(__dirname, '../controllers/user'))
+const study = require(path.join(__dirname, '../controllers/study'))
 
 // AppKey
-router.get('/api/appkey/:phone', appkey.getAppKey)
-router.post('/api/appkey', appkey.addAppKey)
+router.get('/appkey/:phone', appkey.getAppKey)
+router.post('/appkey', appkey.addAppKey)
 
 // 用户
-router.post('/api/user/wxlogin',user.wxLogin)
-router.get('/api/user/vcode',user.getVcode)
-router.post('/api/user/login',user.login)
+router.post('/user/wxlogin',user.wxLogin)
+router.get('/user/vcode',user.getVcode)
+router.post('/user/login',user.login)
 
 // 首页
-router.get('/api/home/swipers', home.getSwipers)
-router.get('/api/home/course', home.getRecommendCourse)
-router.get('/api/home/video', home.getHotVideo)
+router.get('/home/swipers', home.getSwipers)
+router.get('/home/course', home.getRecommendCourse)
+router.get('/home/video', home.getHotVideo)
 
 // 课程
-router.get('/api/course/list', course.getCourseList)
-router.get('/api/course/search', course.getCourseListByName)
-router.get('/api/course/:id', course.getCourseById)
+router.get('/course/list', course.getCourseList)
+router.get('/course/search', course.getCourseListByName)
+router.get('/course/:id', course.getCourseById)
+
+// 学习
+router.get('/study/progress',study.getStudyProgress)
 
 //导出
 module.exports = router
