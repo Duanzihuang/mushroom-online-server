@@ -10,6 +10,7 @@ const home = require(path.join(__dirname, '../controllers/home'))
 const course = require(path.join(__dirname, '../controllers/course'))
 const user = require(path.join(__dirname, '../controllers/user'))
 const study = require(path.join(__dirname, '../controllers/study'))
+const my = require(path.join(__dirname, '../controllers/my'))
 
 // AppKey
 router.get('/appkey/:phone', appkey.getAppKey)
@@ -32,6 +33,9 @@ router.get('/course/:id', course.getCourseById)
 
 // 学习
 router.get('/study/progress',study.getStudyProgress)
+
+// 我的
+router.get('/my/info',my.getUserInfo)
 
 //导出
 module.exports = router

@@ -8,7 +8,7 @@ exports.getStudyProgress = async (req,res) => {
     const user_id = req.query.user_id
 
     // 根据id查询学习进度
-    const selectSql = `select * from t_study where uid=${user_id} and status = 1`
+    const selectSql = `select * from t_study where user_id=${user_id} and status = 1`
 
     const results = await db.execPromise(selectSql)
 
