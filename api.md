@@ -659,28 +659,49 @@
     "status": 0,
     "message": [
         {
-            "id": 1,
-            "uid": 6,
-            "course_id": 1,
+            "sid": 1,
             "study_hour": 5,
-            "study_progress": 0.33,
-            "status": 1
+            "study_progress": 33,
+            "cid": 1,
+            "title": "逻辑思维训练",
+            "icon": "http://127.0.0.1:3000/public/images/course/course1.png",
+            "class_hour": 15
         },
         {
-            "id": 2,
-            "uid": 6,
-            "course_id": 2,
+            "sid": 2,
             "study_hour": 3,
-            "study_progress": 0.3,
-            "status": 1
+            "study_progress": 30,
+            "cid": 2,
+            "title": "Scratch编程启蒙",
+            "icon": "http://127.0.0.1:3000/public/images/course/course2.png",
+            "class_hour": 10
         },
         {
-            "id": 3,
-            "uid": 6,
-            "course_id": 3,
+            "sid": 3,
             "study_hour": 6,
             "study_progress": 50,
-            "status": 1
+            "cid": 3,
+            "title": "创意手绘班",
+            "icon": "http://127.0.0.1:3000/public/images/course/course3.png",
+            "class_hour": 12
+        },
+        {
+            "sid": 4,
+            "study_hour": 8,
+            "study_progress": 67,
+            "cid": 4,
+            "title": "少儿编程入门全集",
+            "icon": "http://127.0.0.1:3000/public/images/course/course4.png",
+            "class_hour": 12
+        },
+        {
+            "sid": 5,
+            "study_hour": 1,
+            "study_progress": 10,
+            "cid": 5,
+            "title": "一分钟童趣简笔画",
+            "icon": "http://127.0.0.1:3000/public/images/course/course5.png",
+            "class_hour": 10
         }
     ]
 }
