@@ -6,7 +6,7 @@ const config = {
   staticPathPrefix:'/public/', // 静态资源访问前缀
   jwt_config: { //Token加密相关信息
     secretKey: 'itheima',
-    expiresIn: 86400
+    expiresIn: 8640000
   }
 }
 

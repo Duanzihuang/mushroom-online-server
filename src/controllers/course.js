@@ -77,7 +77,8 @@ exports.getCourseById = async (req,res) => {
   const res1 = await db.execPromise(selectCourseSql)
   if (res1 && res1.length > 0) {
     res1[0].icon = urltool.stitchingStaticPath(res1[0].icon)
-    result.message.course = res1
+    res1[0].cover_image_url = urltool.stitchingStaticPath(res1[0].cover_image_url)
+    result.message.course = res1[0]
   }
 
   // 查询视频sql
@@ -95,7 +96,7 @@ exports.getCourseById = async (req,res) => {
   const res3 = await db.execPromise(selectLecturerSql)
   if (res3 && res3.length > 0){
     res3[0].avatar = urltool.stitchingStaticPath(res3[0].avatar)
-    result.message.lecturer = res3
+    result.message.lecturer = res3[0]
   }
 
   // 查看评论url

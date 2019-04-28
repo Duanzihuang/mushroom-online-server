@@ -1,5 +1,7 @@
 const path = require('path')
 const db = require(path.join(__dirname, '../db/index.js'))
+const urltool = require(path.join(__dirname,"../utils/urltool.js"))
+
 /**
  * 获取用户信息
  */
@@ -15,6 +17,7 @@ exports.getUserInfo = async (req,res) => {
 
     const res1 = await db.execPromise(selectUserInfoSQL)
     if (res1 && res1.length > 0){
+        res1[0].avatar = urltool.stitchingStaticPath(res1[0].avatar)
         userInfo = res1[0]
     }
 
