@@ -13,11 +13,13 @@ exports.getUserInfo = async (req,res) => {
     let userInfo = null
 
     // 查询用户信息
-    const selectUserInfoSQL = `select nickname,avatar from t_user where id = ${user_id} and status = 1`
+    const selectUserInfoSQL = `select nickname,avatar,login_type from t_user where id = ${user_id} and status = 1`
 
     const res1 = await db.execPromise(selectUserInfoSQL)
     if (res1 && res1.length > 0){
-        res1[0].avatar = urltool.stitchingStaticPath(res1[0].avatar)
+        if (res1[0].login_type === 1){ // 手机号登录
+            res1[0].avatar = urltool.stitchingStaticPath(res1[0].avatar)
+        }
         userInfo = res1[0]
     }
 
@@ -25,14 +27,14 @@ exports.getUserInfo = async (req,res) => {
     const selectStudyCountSQL = `select sum(study_hour) as study_hour from t_study where user_id = ${user_id} and status = 1`
     const res2 = await db.execPromise(selectStudyCountSQL)
     if (res2 && res2.length > 0){
-        userInfo.study_hour = res2[0].study_hour
+        userInfo.study_hour = res2[0].study_hour || 0
     }
 
     // 统计我的关注
     const selectFollowCountSQL = `select count(*) as follow_count from t_follow where user_id = ${user_id} and status = 1`
     const res3 = await db.execPromise(selectFollowCountSQL)
     if (res3 && res3.length > 0){
-        userInfo.follow_count = res3[0].follow_count
+        userInfo.follow_count = res3[0].follow_count || 0
     }
 
     // 统计我的课程

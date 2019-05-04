@@ -20,14 +20,31 @@ exports.wxLogin = async (req, res) => {
   if (!req.body.code) {
     result.status = 1
     result.message = 'code不能为空'
-    res.json(result)
-    return
+    return res.json(result)
+  }
+
+  if (!req.body.nickname){
+    result.status = 2
+    result.message = '昵称不能为空'
+    return res.json(result)
+  }
+
+  if (!req.body.avatar){
+    result.status = 3
+    result.message = '头像不能为空'
+    return res.json(result)
   }
 
   // 调用wxsdk的方法
   const res1 = await getWxOpenId(req.body.code)
+  if (res1.errcode){
+    result.status = 4
+    result.message = res1.errmsg
+    return res.json(result)
+  }
+  
   if (!res1) {
-    result.status = 2
+    result.status = 5
     result.message = '微信登录失败,请检查code及appid的设置'
     res.json(result)
 
@@ -45,17 +62,17 @@ exports.wxLogin = async (req, res) => {
   if (res2 && res2.length > 0) {
     // 存在
     const updateUserInfoSql = `update t_user set wx_session_key='${
-      res2.session_key
-    }' where wx_open_id='${res2.openid}' and status = 1`
+      res1.session_key
+    }',nickname='${req.body.nickname}',avatar='${req.body.avatar}',login_type=0 where wx_open_id='${res1.openid}' and status = 1`
 
     await db.execPromise(updateUserInfoSql)
 
-    userId = res2.id
+    userId = res2[0].id
   } else {
     // 不存在
-    const insertUserInfoSql = `insert into t_user(wx_open_id,wx_session_key) values('${
+    const insertUserInfoSql = `insert into t_user(wx_open_id,wx_session_key,nickname,avatar,login_type) values('${
       res1.openid
-    }','${res1.session_key}')`
+    }','${res1.session_key}','${req.body.nickname}','${req.body.avatar}',0)`
 
     const res3 = await db.execPromise(insertUserInfoSql)
 

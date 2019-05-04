@@ -633,6 +633,189 @@
 } 
 ```
 
+#### 获取课程播放信息
+
+- 请求路径：course/play/:id
+- 请求方法：GET
+- 请求参数：
+
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| id     | 课程id   | 暂无 |
+
+- 响应参数
+
+| 参数名  | 参数说明 | 备注                 |
+| ------- | -------- | -------------------- |
+| status  | 响应状态 | 0:成功  1:服务器异常 |
+| message | 响应体   | 服务器返回的响应体   |
+
+- 响应数据
+
+```javascript
+{
+    "status": 0,
+    "message": {
+        "course": {
+            "id": 3,
+            "title": "创意手绘班",
+            "subtitle": "轻松入门手绘",
+            "icon": "http://127.0.0.1:3000/public/images/course/course3.png",
+            "cover_image_url": "http://127.0.0.1:3000/public/images/course/course3_cover_image.png",
+            "audience": null,
+            "introduction": "本课程面向零基础的绘画爱好者，适合6~12岁儿童学习，只要您的孩子对画画感兴趣就可以迅速上手，提升孩子审美~",
+            "level": 3,
+            "class_hour": 12,
+            "price": 259,
+            "score": 4,
+            "study_count": 1524,
+            "is_recommend": 0,
+            "create_time": "2019-04-04T13:38:09.000Z",
+            "update_time": null,
+            "delete_time": null,
+            "status": 1
+        },
+        "videos": [
+            {
+                "id": 1,
+                "name": "绘画课程使用画具购买建议",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "10:00",
+                "is_study": 1,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T04:50:31.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 2,
+                "name": "掌握线条绘制的方法",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "06:40",
+                "is_study": 1,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T04:58:33.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 3,
+                "name": "认识常见的绘画造型",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "08:20",
+                "is_study": 1,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T04:58:36.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 4,
+                "name": "Q版人物结构绘制（上）",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "05:20",
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T06:35:11.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 5,
+                "name": "Q版人物结构绘制（下）",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "08:40",
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T06:35:47.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 6,
+                "name": "颜色上色技巧（上）",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "05:00",
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T06:38:18.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 7,
+                "name": "颜色上色技巧（下）",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "05:00",
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T06:38:20.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 8,
+                "name": "酷丁鱼卡通形象设计（上）",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "08:40",
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T06:38:15.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            },
+            {
+                "id": 9,
+                "name": "酷丁鱼卡通形象设计（下）",
+                "cover_photo_url": "http://127.0.0.1:3000/public/images/other/404.jpg",
+                "video_url": null,
+                "duration": "06:20",
+                "is_study": 0,
+                "course_id": 3,
+                "is_hot": 0,
+                "view_count": null,
+                "create_time": "2019-04-09T06:39:23.000Z",
+                "update_time": null,
+                "delete_time": null,
+                "status": 1
+            }
+        ]
+    }
+}
+```
+
 ## 学习
 
 #### 获取学习进度列表

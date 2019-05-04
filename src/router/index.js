@@ -30,6 +30,7 @@ router.get('/home/video', home.getHotVideo)
 router.get('/course/list', course.getCourseList)
 router.get('/course/search', course.getCourseListByName)
 router.get('/course/:id', course.getCourseById)
+router.get('/course/play/:id', course.getCoursePlayById)
 
 // 学习
 router.get('/study/progress',study.getStudyProgress)
