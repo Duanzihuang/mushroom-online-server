@@ -101,7 +101,8 @@ exports.getCourseById = async (req,res) => {
   }
 
   // 查看评论url
-  const selectCommentSql = `select * from t_comment c left join t_user u on c.uid = u.id and c.course_id = ${req.params.id} and c.status = 1`
+  const selectCommentSql = `select * from t_comment c inner join t_user u on c.uid = u.id and c.course_id = ${req.params.id} and c.status = 1`
+
   const res4 = await db.execPromise(selectCommentSql)
   if (res4 && res4.length > 0){
     res4.forEach(item => {

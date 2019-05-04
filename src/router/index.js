@@ -11,6 +11,7 @@ const course = require(path.join(__dirname, '../controllers/course'))
 const user = require(path.join(__dirname, '../controllers/user'))
 const study = require(path.join(__dirname, '../controllers/study'))
 const my = require(path.join(__dirname, '../controllers/my'))
+const order = require(path.join(__dirname, '../controllers/order'))
 
 // AppKey
 router.get('/appkey/:phone', appkey.getAppKey)
@@ -37,6 +38,12 @@ router.get('/study/progress',study.getStudyProgress)
 
 // 我的
 router.get('/my/info',my.getUserInfo)
+
+// 订单
+router.get('/order/info',order.getOrderInfo)
+router.get('/order/paystatus',order.getOrderPayStatus)
+router.post('/order/create',order.createOrder)
+router.post('/order/pay',order.payOrder)
 
 //导出
 module.exports = router

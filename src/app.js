@@ -13,7 +13,7 @@ const app = express()
 app.use(middleware.allowCrossDomain)
 
 // 权限控制中间件
-app.use(middleware.validateAppKey)
+// app.use(middleware.validateAppKey)
 
 // 验证token
 app.use(middleware.validateToken)
