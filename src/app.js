@@ -19,7 +19,7 @@ app.use(middleware.allowCrossDomain)
 app.use(middleware.validateToken)
 
 // 静态资源中间件
-app.use('/public',express.static(path.join(__dirname, 'public')))
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -28,7 +28,18 @@ app.use(bodyParser.json())
 
 // 路由中间件
 const apiRouter = require(path.join(__dirname, 'router'))
-app.use('/api',apiRouter)
+app.use('/api', apiRouter)
+
+// 全局错误处理
+app.use((err, req, res, next) => {
+  if (err) {
+    res.status(500).send({
+      statusCode: 500,
+      message: 'Internal Server error',
+      error: err.message
+    })
+  }
+})
 
 //5.启动
 app.listen(config.PORT, err => {

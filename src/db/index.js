@@ -49,10 +49,10 @@ exports.exec = (sql, callback) => {
 }
 
 // 执行sql，通过Promise传递结果
-exports.execPromise = sql => {
+exports.execPromise = (sql,params) => {
   return new Promise((resolve, reject) => {
     // 执行sql
-    pool.query(sql, function(error, results, fields) {
+    pool.query(sql,params, function(error, results, fields) {
       if (error) reject(error)
       resolve(results)
     })
