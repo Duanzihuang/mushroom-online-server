@@ -12,6 +12,7 @@ const user = require(path.join(__dirname, '../controllers/user'))
 const study = require(path.join(__dirname, '../controllers/study'))
 const my = require(path.join(__dirname, '../controllers/my'))
 const order = require(path.join(__dirname, '../controllers/order'))
+const comment = require(path.join(__dirname, '../controllers/comment'))
 
 // AppKey
 router.get('/appkey/:phone', appkey.getAppKey)
@@ -44,6 +45,9 @@ router.get('/order/info',order.getOrderInfo)
 router.get('/order/paystatus',order.getOrderPayStatus)
 router.post('/order/create',order.createOrder)
 router.post('/order/pay',order.payOrder)
+
+// 评论
+router.post('/comment/like',comment.like)
 
 //导出
 module.exports = router

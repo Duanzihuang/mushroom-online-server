@@ -70,6 +70,7 @@ exports.getCourseById = async (req,res) => {
       videos:null, // 课程的视频列表
       lecturer:null, // 课程讲师信息
       comments:null, // 课程的评论列表
+      commentTotal:0 // 评论总数
     }
   }
 
@@ -101,14 +102,15 @@ exports.getCourseById = async (req,res) => {
   }
 
   // 查看评论url
-  const selectCommentSql = `select * from t_comment c inner join t_user u on c.uid = u.id and c.course_id = ${req.params.id} and c.status = 1`
-
+  const selectCommentSql = `select c.*,u.id as uid,u.nickname,u.avatar from t_comment c inner join t_user u on c.uid = u.id and c.course_id = ${req.params.id} and c.status = 1`
+  
   const res4 = await db.execPromise(selectCommentSql)
   if (res4 && res4.length > 0){
     res4.forEach(item => {
       item.avatar = urltool.stitchingStaticPath(item.avatar)
     })
     result.message.comments = res4
+    result.message.commentTotal = res4.length
   }
 
   res.send(result)
