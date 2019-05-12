@@ -36,6 +36,7 @@ router.get('/course/play/:id', course.getCoursePlayById)
 
 // 学习
 router.get('/study/progress',study.getStudyProgress)
+router.post('/study/video',study.studyCourseVideo)
 
 // 我的
 router.get('/my/info',my.getUserInfo)

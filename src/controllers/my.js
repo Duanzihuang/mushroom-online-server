@@ -24,7 +24,7 @@ exports.getUserInfo = async (req,res) => {
     }
 
     // 统计累计学习小时
-    const selectStudyCountSQL = `select sum(study_hour) as study_hour from t_study where user_id = ${user_id} and status = 1`
+    const selectStudyCountSQL = `select sum(study_hour) as study_hour from t_study_progress where user_id = ${user_id} and status = 1`
     const res2 = await db.execPromise(selectStudyCountSQL)
     if (res2 && res2.length > 0){
         userInfo.study_hour = res2[0].study_hour || 0
@@ -38,7 +38,7 @@ exports.getUserInfo = async (req,res) => {
     }
 
     // 统计我的课程
-    const selectCourseCountSQL = `select count(*) as course_count from t_study where user_id = ${user_id} and status = 1`
+    const selectCourseCountSQL = `select count(*) as course_count from t_study_progress where user_id = ${user_id} and status = 1`
     const res4 = await db.execPromise(selectCourseCountSQL)
     if (res4 && res4.length > 0){
         userInfo.course_count = res4[0].course_count

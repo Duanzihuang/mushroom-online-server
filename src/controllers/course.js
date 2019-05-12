@@ -143,11 +143,12 @@ exports.getCoursePlayById = async (req,res) => {
   if (res1 && res1.length > 0) {
     res1[0].icon = urltool.stitchingStaticPath(res1[0].icon)
     res1[0].cover_image_url = urltool.stitchingStaticPath(res1[0].cover_image_url)
+    res1[0].course_duration = timetool.secondsConvertMinute(res1[0].course_duration)
     result.message.course = res1[0]
   }
 
   // 查询视频sql
-  const selectVideoSql = `select * from t_video where course_id=${req.params.id} and status = 1`
+  const selectVideoSql = `select v.*,s.is_study from t_video v left join t_study_video s on v.id = s.video_id where v.course_id=${req.params.id} and v.status = 1`
   const res2 = await db.execPromise(selectVideoSql)
   if (res2 && res2.length > 0){
     res2.forEach(item => {

@@ -5,7 +5,6 @@ const db = require(path.join(__dirname, '../db/index.js'))
  * 点赞
  */
 exports.like = async (req, res, next) => {
-  console.log(req.body)
   if (!req.body.comment_id) {
     return res.send({
       status: 1,
@@ -24,7 +23,7 @@ exports.like = async (req, res, next) => {
 
   try {
     const res1 = await db.execPromise(
-      `update t_comment set is_like = ? where id = ?`,
+      'update t_comment set is_like = ? where id = ?',
       [is_like, comment_id]
     )
   } catch (error) {
