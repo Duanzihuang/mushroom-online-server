@@ -37,6 +37,7 @@ router.get('/course/play/:id', course.getCoursePlayById)
 // 学习
 router.get('/study/progress',study.getStudyProgress)
 router.post('/study/video',study.studyCourseVideo)
+router.get('/study/complete',study.studyComplete)
 
 // 我的
 router.get('/my/info',my.getUserInfo)
@@ -49,6 +50,7 @@ router.post('/order/pay',order.payOrder)
 
 // 评论
 router.post('/comment/like',comment.like)
+router.post('/comment/create',comment.create)
 
 //导出
 module.exports = router

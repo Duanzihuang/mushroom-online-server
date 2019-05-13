@@ -33,6 +33,50 @@ exports.getStudyProgress = async (req,res) => {
     })
 }
 
+/**
+ * 根据用户id和课程id，查询该用户该课程的学习进度
+ */
+exports.getCourseStudyProgress = async (user_id,course_id) => {
+    const res1 = await db.execPromise('select study_progress from t_study_progress where user_id = ? and course_id = ?',[user_id,course_id])
+
+    return res1 && res1[0].study_progress || 0
+}
+
+/**
+ * 是否完成了某个课程的学习
+ */
+exports.studyComplete = async (req,res) => {
+    if (!req.query.user_id){
+        return res.send({
+            status:1,
+            message:'用户id不能为空'
+        })
+    }
+
+    if (!req.query.course_id){
+        return res.send({
+            status:2,
+            message:'课程id不能为空'
+        })
+    }
+    
+    const {user_id,course_id} = req.query
+
+    const res1 = await db.execPromise('select study_progress from t_study_progress where user_id = ? and course_id = ?',[user_id,course_id])
+
+    if (res1 && res1.length > 0){
+        res.send({
+            status:0,
+            complete:res1[0].study_progress >= 99.5
+        })
+    } else {
+        res.send({
+            status:0,
+            complete:false
+        })
+    }
+}
+
 /*
  * 学习课程对应的视频，并且更新学习进度
  */
