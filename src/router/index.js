@@ -13,6 +13,7 @@ const study = require(path.join(__dirname, '../controllers/study'))
 const my = require(path.join(__dirname, '../controllers/my'))
 const order = require(path.join(__dirname, '../controllers/order'))
 const comment = require(path.join(__dirname, '../controllers/comment'))
+const lecturer = require(path.join(__dirname, '../controllers/lecturer'))
 
 // AppKey
 router.get('/appkey/:phone', appkey.getAppKey)
@@ -51,6 +52,10 @@ router.post('/order/pay',order.payOrder)
 // 评论
 router.post('/comment/like',comment.like)
 router.post('/comment/create',comment.create)
+
+// 讲师
+router.post('/lecturer/follow',lecturer.follow)
+router.post('/lecturer/unfollow',lecturer.unfollow)
 
 //导出
 module.exports = router

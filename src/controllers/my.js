@@ -31,7 +31,7 @@ exports.getUserInfo = async (req,res) => {
     }
 
     // 统计我的关注
-    const selectFollowCountSQL = `select count(*) as follow_count from t_follow where user_id = ${user_id} and status = 1`
+    const selectFollowCountSQL = `select count(*) as follow_count from t_follow where user_id = ${user_id} and status = 1 and is_follow = 1`
     const res3 = await db.execPromise(selectFollowCountSQL)
     if (res3 && res3.length > 0){
         userInfo.follow_count = res3[0].follow_count || 0

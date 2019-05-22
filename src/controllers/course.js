@@ -101,16 +101,27 @@ exports.getCourseById = async (req,res) => {
     result.message.lecturer = res3[0]
   }
 
+  // 是否关注了该讲师
+  if (req.query.user_id){
+    const followSql = `select is_follow from t_follow where user_id = ? and lecturer_id = ?`
+    const res4 = await db.execPromise(followSql,[req.query.user_id,res3[0].id])
+    if (res4 && res4.length > 0){
+      result.message.lecturer.is_follow = res4[0].is_follow
+    } else {
+      result.message.lecturer.is_follow = 0
+    }
+  }
+
   // 查看评论url
   const selectCommentSql = `select c.*,u.id as user_id,u.nickname,u.avatar from t_comment c inner join t_user u on c.user_id = u.id and c.course_id = ${req.params.id} and c.status = 1`
   
-  const res4 = await db.execPromise(selectCommentSql)
-  if (res4 && res4.length > 0){
-    res4.forEach(item => {
+  const res5 = await db.execPromise(selectCommentSql)
+  if (res5 && res5.length > 0){
+    res5.forEach(item => {
       item.avatar = urltool.stitchingStaticPath(item.avatar)
     })
-    result.message.comments = res4
-    result.message.commentTotal = res4.length
+    result.message.comments = res5
+    result.message.commentTotal = res5.length
   }
 
   res.send(result)
