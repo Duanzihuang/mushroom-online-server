@@ -79,6 +79,8 @@ exports.validateToken = (req, res, next) => {
       var decoded = jwt.verify(req.headers.authorization.substr(7), global_config.jwt_config.secretKey)
       
       req.query.user_id = decoded.user_id
+      req.query.openid = decoded.openid
+      req.query.login_type = decoded.login_type
 
       next()
     } catch(err) {

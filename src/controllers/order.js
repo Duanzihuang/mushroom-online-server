@@ -1,6 +1,7 @@
 const path = require('path')
 const db = require(path.join(__dirname, '../db/index.js'))
 const moment = require('moment')
+const ordernumber = require(path.join(__dirname,'../utils/ordernumber'))
 
 // 验证必填参数
 const validateParams = (req, res) => {
@@ -118,6 +119,7 @@ exports.createOrder = async (req, res) => {
     result.status = 0
     result.message = '查询订单成功'
     result.order_id = res1[0].id
+    result.order_number = res1[0].order_number
   } else { // 没查询到则新增
     const params = {
       user_id: user_id,
@@ -129,7 +131,16 @@ exports.createOrder = async (req, res) => {
     const res2 = await db.execPromise('insert into t_order set ?', params)
   
     if (res2) {
+      // 订单id
       result.order_id = res2.insertId
+
+      // 更新订单号
+      const order_number = ordernumber.generateOrderNoString("HMDD",res2.insertId)
+      const res3 = await db.execPromise('update t_order set order_number = ? where id = ?',
+      [order_number,res2.insertId])
+
+      // 订单号
+      result.order_number = order_number
     }
   }
 
@@ -172,5 +183,30 @@ exports.payOrder = async (req, res, next) => {
     }
   } catch (error) {
     next(error)
+  }
+}
+
+/**
+ * 微信支付成功
+ */
+exports.wxPaySuccess = async (req,res) => {
+  if (!req.body.order_number) {
+    return res.json({
+      status:1,
+      message:'订单号不能为空'
+    })
+  }
+
+  const result = await db.execPromise('update t_order set pay_status = 1 where order_number = ?',[req.body.order_number])
+  if (result && result.changedRows > 0) {
+    res.json({
+      status: 0,
+      message: '更改订单状态成功'
+    })
+  } else {
+    res.json({
+      status: 2,
+      message: '订单状态更改失败'
+    })
   }
 }

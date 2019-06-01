@@ -80,7 +80,7 @@ exports.wxLogin = async (req, res) => {
   }
 
   // 根据userId生成token
-  const token = "Bearer "+jwt.sign({ user_id: userId }, config.jwt_config.secretKey, {
+  const token = "Bearer "+jwt.sign({ user_id: userId,openid:res1.openid,login_type:'wx' }, config.jwt_config.secretKey, {
     expiresIn: config.jwt_config.expiresIn
   })
   
@@ -176,7 +176,7 @@ exports.login = async (req,res) => {
   }
 
   // 根据userId生成token
-  const token = 'Bearer ' + jwt.sign({ user_id: userId }, config.jwt_config.secretKey, {
+  const token = 'Bearer ' + jwt.sign({ user_id: userId,login_type:'phone' }, config.jwt_config.secretKey, {
     expiresIn: config.jwt_config.expiresIn
   })
   

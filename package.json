@@ -15,8 +15,12 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "md5": "^2.2.1",
     "moment": "^2.24.0",
     "mysql": "^2.16.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "xml2js": "^0.4.19",
+    "xml2js-parser": "^1.1.1"
   }
 }

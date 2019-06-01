@@ -12,6 +12,7 @@ const user = require(path.join(__dirname, '../controllers/user'))
 const study = require(path.join(__dirname, '../controllers/study'))
 const my = require(path.join(__dirname, '../controllers/my'))
 const order = require(path.join(__dirname, '../controllers/order'))
+const pay = require(path.join(__dirname, '../controllers/pay'))
 const comment = require(path.join(__dirname, '../controllers/comment'))
 const lecturer = require(path.join(__dirname, '../controllers/lecturer'))
 
@@ -47,7 +48,11 @@ router.get('/my/info',my.getUserInfo)
 router.get('/order/info',order.getOrderInfo)
 router.get('/order/paystatus',order.getOrderPayStatus)
 router.post('/order/create',order.createOrder)
-router.post('/order/pay',order.payOrder)
+router.post('/order/pay',order.payOrder) // 模拟支付
+router.post('/order/wxpaysuccess',order.wxPaySuccess) // 微信支付成功
+
+// 支付
+router.post('/pay/req_unifiedorder',pay.reqUnifiedOrder) // 请求预付单
 
 // 评论
 router.post('/comment/like',comment.like)
