@@ -34,7 +34,7 @@ exports.follow = async (req,res) => {
             })
         }
     } else { // 不存在，则插入
-        const res3 = await db.execPromise('insert into follow set ?',{
+        const res3 = await db.execPromise('insert into t_follow set ?',{
             user_id:req.query.user_id,
             lecturer_id:req.body.lecturer_id,
             is_follow:1

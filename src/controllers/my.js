@@ -10,7 +10,7 @@ exports.getUserInfo = async (req,res) => {
     const user_id = req.query.user_id
 
     // 用户信息对象
-    let userInfo = null
+    let userInfo = {}
 
     // 查询用户信息
     const selectUserInfoSQL = `select nickname,avatar,login_type from t_user where id = ${user_id} and status = 1`

@@ -106,10 +106,10 @@ exports.studyCourseVideo = async (req,res) => {
     const {course_id,video_id} = req.body
 
     // 先根据用户id 和 视频id 查询是否存在，如果存在则把状态更新为已学习，如果不存在则插入一条已经学习的记录
-    const res1 = await db.execPromise('select * from t_study_video where user_id = ? and video_id = ?',[user_id,video_id])
+    const res1 = await db.execPromise('select * from t_study_video where user_id = ? and course_id = ? and video_id = ?',[user_id,course_id,video_id])
 
     if (res1 && res1.length  > 0){ // 已经存在该视频的学习记录
-        const res2 = await db.execPromise('update t_study_video set is_study = 1 where user_id = ? and video_id = ?',[user_id,video_id])
+        const res2 = await db.execPromise('update t_study_video set is_study = 1 where user_id = ? and course_id = ? and video_id = ?',[user_id,course_id,video_id])
 
         if (res2 && res2.affectedRows >= 1){
             // 更新学习进度
@@ -124,6 +124,7 @@ exports.studyCourseVideo = async (req,res) => {
     } else {
         const res3 = await db.execPromise('insert into t_study_video set ?',{
             user_id,
+            course_id,
             video_id,
             is_study:1
         })
@@ -189,7 +190,7 @@ const updateStudyProgress2 = async (study_progress_id,course_id,user_id) => {
         const res2 = await db.execPromise('select course_duration from t_course where id = ? and status = 1',[course_id])
 
         // 已经学习的视频的总时长
-        const res3 = await db.execPromise('select sum(v.duration) as study_duration from t_video v right join t_study_video s on v.id = s.video_id and s.user_id = ? where s.is_study = 1',[user_id])
+        const res3 = await db.execPromise('select sum(v.duration) as study_duration from t_video v right join t_study_video s on v.id = s.video_id and s.user_id = ? and s.course_id = ? where s.is_study = 1',[user_id,course_id])
 
         // 计算进度
         const progress = (res3[0].study_duration / res2[0].course_duration).toFixed(2) * 100
