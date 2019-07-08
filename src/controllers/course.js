@@ -1,4 +1,6 @@
 const path = require('path')
+const moment = require('moment')
+const zhCN = require('moment/locale/zh-cn')
 const db = require(path.join(__dirname, '../db/index.js'))
 const urltool = require(path.join(__dirname, '../utils/urltool.js'))
 const timetool = require(path.join(__dirname, '../utils/timetool.js'))
@@ -23,13 +25,13 @@ exports.getCourseList = async (req, res) => {
 
 // 根据名字获取课程列表
 exports.getCourseListByName = async (req, res) => {
-  if (!req.query.name){
-    res.json({
-      status:1,
-      message:'课程名称不能为空'
-    })
-    return
-  }
+  // if (!req.query.name){
+  //   res.json({
+  //     status:1,
+  //     message:'课程名称不能为空'
+  //   })
+  //   return
+  // }
 
   // 查询关键字
   const keyword = req.query.name || ''
@@ -102,7 +104,7 @@ exports.getCourseById = async (req,res) => {
   }
 
   // 是否关注了该讲师
-  if (req.query.user_id){
+  if (req.query.user_id && res3[0]){
     const followSql = `select is_follow from t_follow where user_id = ? and lecturer_id = ?`
     const res4 = await db.execPromise(followSql,[req.query.user_id,res3[0].id])
     if (res4 && res4.length > 0){
@@ -114,11 +116,12 @@ exports.getCourseById = async (req,res) => {
 
   // 查看评论url
   const selectCommentSql = `select c.*,u.id as user_id,u.nickname,u.avatar from t_comment c inner join t_user u on c.user_id = u.id and c.course_id = ${req.params.id} and c.status = 1`
-  
+
   const res5 = await db.execPromise(selectCommentSql)
   if (res5 && res5.length > 0){
     res5.forEach(item => {
       item.avatar = urltool.stitchingStaticPath(item.avatar)
+      item.comment_time = moment(item.comment_time).fromNow().replace(' ','')
     })
     result.message.comments = res5
     result.message.commentTotal = res5.length
@@ -159,15 +162,33 @@ exports.getCoursePlayById = async (req,res) => {
   }
 
   // 查询视频sql
-  const selectVideoSql = `select v.*,s.is_study from t_video v left join t_study_video s on v.id = s.video_id where v.course_id=${req.params.id} and v.status = 1`
+  // const selectVideoSql = `select v.*,s.is_study from t_video v left join t_study_video s on v.id = s.video_id where v.course_id=${req.params.id} and v.status = 1`
+  const selectVideoSql = `select * from t_video where course_id=${req.params.id}`
   const res2 = await db.execPromise(selectVideoSql)
   if (res2 && res2.length > 0){
-    res2.forEach(item => {
+    res2.forEach(async (item) => {
+      console.log("22222222222222")
       item.cover_photo_url = urltool.stitchingStaticPath(item.cover_photo_url)
       item.duration = timetool.secondsConvertMinute(item.duration)
+
+      // 根据user_id、course_id、video_id查询是否学习完毕
+      // const res3 = await db.execPromise('select is_study from t_study_video where user_id=? and course_id=? and video_id=?'
+      // ,[req.query.user_id,req.params.id,item.id])
+      // if (res3 && res3.length > 0){
+      //   // console.log(res3[0])
+      //   item.is_study = res3[0].is_study
+
+      //   console.log("33333333333333")
+      // }
+
+      console.log("33333333333")
     })
+    console.log("=====================")
+
     result.message.videos = res2
   }
+
+  console.log("444444444444")
 
   res.send(result)
 }
