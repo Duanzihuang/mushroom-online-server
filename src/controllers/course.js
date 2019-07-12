@@ -166,29 +166,22 @@ exports.getCoursePlayById = async (req,res) => {
   const selectVideoSql = `select * from t_video where course_id=${req.params.id}`
   const res2 = await db.execPromise(selectVideoSql)
   if (res2 && res2.length > 0){
-    res2.forEach(async (item) => {
-      console.log("22222222222222")
+    for (var i=0 ; i < res2.length ; i++) {
+      const item = res2[i]
+      
       item.cover_photo_url = urltool.stitchingStaticPath(item.cover_photo_url)
       item.duration = timetool.secondsConvertMinute(item.duration)
 
       // 根据user_id、course_id、video_id查询是否学习完毕
-      // const res3 = await db.execPromise('select is_study from t_study_video where user_id=? and course_id=? and video_id=?'
-      // ,[req.query.user_id,req.params.id,item.id])
-      // if (res3 && res3.length > 0){
-      //   // console.log(res3[0])
-      //   item.is_study = res3[0].is_study
-
-      //   console.log("33333333333333")
-      // }
-
-      console.log("33333333333")
-    })
-    console.log("=====================")
-
+      const res3 = await db.execPromise('select is_study from t_study_video where user_id=? and course_id=? and video_id=?'
+      ,[req.query.user_id,req.params.id,item.id])
+      if (res3 && res3.length > 0){
+        item.is_study = res3[0].is_study
+      }
+    }
+    
     result.message.videos = res2
   }
-
-  console.log("444444444444")
 
   res.send(result)
 }
