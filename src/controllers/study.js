@@ -59,7 +59,7 @@ exports.studyComplete = async (req,res) => {
             message:'课程id不能为空'
         })
     }
-    
+
     const {user_id,course_id} = req.query
 
     const res1 = await db.execPromise('select study_progress from t_study_progress where user_id = ? and course_id = ?',[user_id,course_id])
@@ -114,7 +114,7 @@ exports.studyCourseVideo = async (req,res) => {
         if (res2 && res2.affectedRows >= 1){
             // 更新学习进度
             updateStudyProgress(course_id,user_id)
-            
+
             res.send({
                 status:0,
                 message:'学习成功'
@@ -152,7 +152,7 @@ const updateStudyProgress = async (course_id,user_id) => {
         if (res1 && res1.length > 0){ // 该课程已经存在学习记录
             updateStudyProgress2(res1[0].id,course_id,user_id)
         } else { // 该课程没有学习记录
-            const res2 = await db.execPromise('select count(*) as total_hour from t_video where id = ? and status = 1',[course_id])
+            const res2 = await db.execPromise('select count(*) as total_hour from t_video where course_id = ? and status = 1',[course_id])
 
             const res3 = await db.execPromise(`insert into t_study_progress set ?`,{
                 user_id,
@@ -165,7 +165,7 @@ const updateStudyProgress = async (course_id,user_id) => {
 
                 updateStudyProgress2(study_progress_id,course_id,user_id)
             }
-        } 
+        }
     } catch (error) {
         console.log(error)
     }
@@ -182,22 +182,24 @@ const updateStudyProgress2 = async (study_progress_id,course_id,user_id) => {
     //   根据 user_id 和 course_id 查询出已经学习的总时长
     try {
         // 该课程已经学习的视频的小节数量
-        const res1 = await db.execPromise('select count(*) as study_hour from t_study_video where user_id = ? and is_study = 1 and status = 1',[user_id])
-
+        const res1 = await db.execPromise('select count(*) as study_hour from t_study_video where user_id = ? and course_id = ? and is_study = 1 and status = 1',[user_id,course_id])
         const study_hour = res1[0] && res1[0].study_hour || 0
 
+        // 该课程的总节数
+        const res2 = await db.execPromise('select count(*) as total_hour from t_video where course_id = ? and status = 1',[course_id])
+        const total_hour = res2[0] && res2[0].total_hour || 0
+
         // 课程的总时长
-        const res2 = await db.execPromise('select course_duration from t_course where id = ? and status = 1',[course_id])
+        const res3 = await db.execPromise('select course_duration from t_course where id = ? and status = 1',[course_id])
 
         // 已经学习的视频的总时长
-        const res3 = await db.execPromise('select sum(v.duration) as study_duration from t_video v right join t_study_video s on v.id = s.video_id and s.user_id = ? and s.course_id = ? where s.is_study = 1',[user_id,course_id])
+        const res4 = await db.execPromise('select sum(v.duration) as study_duration from t_video v right join t_study_video s on v.id = s.video_id and s.user_id = ? and s.course_id = ? where s.is_study = 1',[user_id,course_id])
 
         // 计算进度
-        const progress = (res3[0].study_duration / res2[0].course_duration).toFixed(2) * 100
+        const progress = (res4[0].study_duration / res3[0].course_duration).toFixed(2) * 100
 
         // 更新学习进度
-        const res4 = await db.execPromise('update t_study_progress set study_hour = ?,study_progress = ? where user_id = ? and course_id = ?',[study_hour,progress,user_id,course_id])
-        
+        const res5 = await db.execPromise('update t_study_progress set study_hour = ?,total_hour = ?,study_progress = ? where user_id = ? and course_id = ?',[study_hour,total_hour,progress,user_id,course_id])
     } catch (error) {
         console.log(error)
     }
