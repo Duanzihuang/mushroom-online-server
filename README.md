@@ -24,7 +24,7 @@ Express + Mysql 搭建的蘑菇在线服务端
 
 # 新建数据库 mushroom_online
 
-# 执行项目根目录下 db_file/mushroom_online.sql 文件
+# 执行 mushroom_online.sql 文件
 
 # 克隆项目源代码 
 git clone https://github.com/Duanzihuang/mushroom-online-server.git
