@@ -32,10 +32,17 @@ exports.like = async (req, res, next) => {
     throw error
   }
 
-  res.send({
-    status: 0,
-    message: '点赞成功'
-  })
+  if (is_like === 1) {
+    res.send({
+      status: 0,
+      message: '取消点赞成功'
+    })
+  } else {
+    res.send({
+      status: 0,
+      message: '点赞成功'
+    })
+  }
 }
 
 /**
