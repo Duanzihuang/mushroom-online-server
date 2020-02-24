@@ -1,0 +1,7 @@
+apps:
+  - script: ./src/app.js
+    name: mushroom-online-server
+    env_production:
+      NODE_ENV: production
+      HOST: localhost
+      PROT: 8888
